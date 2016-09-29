@@ -1,5 +1,5 @@
-var PORT = 80;
-Var PUBLIC_DIR = '.';
+var PORT = process.argv[0] || 80;
+var PUBLIC_DIR = process.argv[1] || '.';
 http.createServer(function (request, response) {
     console.log('request starting...');
 
