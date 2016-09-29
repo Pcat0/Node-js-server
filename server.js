@@ -1,5 +1,5 @@
-var PORT = process.argv[0] || 80;
-var PUBLIC_DIR = process.argv[1] || '.';
+var PORT = process.argv[2] || 80;
+var PUBLIC_DIR = process.argv[3] || '.';
 
 var http = require('http');
 var fs = require('fs');
