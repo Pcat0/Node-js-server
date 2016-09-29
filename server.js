@@ -1,34 +1,37 @@
 var PORT = process.argv[0] || 80;
 var PUBLIC_DIR = process.argv[1] || '.';
+
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
+
 http.createServer(function (request, response) {
-    console.log('request starting...');
+    console.log('request ', request.url);
 
     var filePath = PUBLIC_DIR + request.url;
     if (filePath == PUBLIC_DIR + '/')
         filePath = PUBLIC_DIR + '/index.html';
 
-    var extname = path.extname(filePath);
+    var extname = String(path.extname(filePath)).toLowerCase();
     var contentType = 'text/html';
-    switch (extname) {
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.json':
-            contentType = 'application/json';
-            break;
-        case '.png':
-            contentType = 'image/png';
-            break;      
-        case '.jpg':
-            contentType = 'image/jpg';
-            break;
-        case '.wav':
-            contentType = 'audio/wav';
-            break;
-    }
+    var mimeTypes = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpg',
+        '.gif': 'image/gif',
+        '.wav': 'audio/wav',
+        '.mp4': 'video/mp4',
+        '.woff': 'application/font-woff',
+        '.ttf': 'applilcation/font-ttf',
+        '.eot': 'application/vnd.ms-fontobject',
+        '.otf': 'application/font-otf',
+        '.svg': 'application/image/svg+xml'
+    };
+
+    contentType = mimeTypes[extname] || 'application/octect-stream';
 
     fs.readFile(filePath, function(error, content) {
         if (error) {
@@ -41,7 +44,7 @@ http.createServer(function (request, response) {
             else {
                 response.writeHead(500);
                 response.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-                response.end(); 
+                response.end();
             }
         }
         else {
@@ -50,5 +53,5 @@ http.createServer(function (request, response) {
         }
     });
 
-}).listen(8125);
+}).listen(PORT);
 console.log('The server is running on port: ${PORT}');
