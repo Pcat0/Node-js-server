@@ -54,4 +54,4 @@ http.createServer(function (request, response) {
     });
 
 }).listen(PORT);
-console.log('The server is running on port: ${PORT}');
+console.log('The server is running on port: '+PORT);
