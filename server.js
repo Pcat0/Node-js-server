@@ -35,6 +35,7 @@ http.createServer(function (request, response) {
 
     fs.readFile(filePath, function(error, content) {
         if (error) {
+            console.log(error);
             if(error.code == 'ENOENT'){
                 fs.readFile(PUBLIC_DIR + '/404.html', function(error, content) {
                     response.writeHead(200, { 'Content-Type': contentType });
