@@ -1,7 +1,7 @@
-//var PORT = process.argv[2] || 80;
-//var PUBLIC_DIR = process.argv[3] || '.';
+var PORT = process.argv[2] || 80;
+var PUBLIC_DIR = process.argv[3] || '.';
 
-require('./server/SpaceGame.js');
+
 
 var http = require('http');
 var fs = require('fs');
